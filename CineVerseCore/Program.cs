@@ -1,9 +1,13 @@
 using Entities.AppDbContext;
 using Microsoft.EntityFrameworkCore;
+using ServiceContracts;
+using Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddScoped<IMediaProductionsService, MediaProductionsService>();
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
 {

@@ -1,0 +1,19 @@
+﻿@model IEnumerable<MediaProduction>
+@{
+    ViewBag.Title = "Home";
+}
+
+<br />
+<h4>Media</h4>
+<br />
+<div class="row" style="display:flex; background-color:white; flex-flow:wrap">
+    @foreach(MediaProduction mp in Model)
+    {
+        <div class="card" style="width:18rem; margin-right:20px!important; margin-bottom:1em">
+            <img src="@Url.Content(mp.ImagePath)" class="card-img-top img-fluid" style="height:400px" alt="Responsive image" />
+            <div class="card-body">
+                <h5 class="card-title justify-content-evenly">@mp.Title</h5> 
+            </div>
+        </div>
+    }
+</div>
