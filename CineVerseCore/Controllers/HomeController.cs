@@ -1,24 +1,29 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Entities.Models;
+using Microsoft.AspNetCore.Mvc;
 using ServiceContracts;
-using System.Linq;
 
 namespace CineVerseCore.Controllers
 {
     [Route("[controller]")]
     public class HomeController : Controller
     {
-        private readonly IMediaProductionsService _mediaProductions;
+        private readonly IMediaProductionsGetterService _mediaProductionsGetterService;
 
-        public HomeController(IMediaProductionsService mediaProductions)
+        public HomeController(IMediaProductionsGetterService mediaProductions)
         {
-            _mediaProductions = mediaProductions;
+            _mediaProductionsGetterService = mediaProductions;
         }
 
         [Route("/")]
         [Route("[action]")]
         public async Task<IActionResult> Index(string searchString = "")
         {
-            return View((await _mediaProductions.GetAllMediaProductions()).Select(item => item.Title?.Contains(searchString, StringComparison.OrdinalIgnoreCase)));
+            IEnumerable<MediaProduction> allMedia = (await _mediaProductionsGetterService.GetAllMediaProductions())
+                .Where(mp => mp.Title!.Contains(searchString, StringComparison.OrdinalIgnoreCase)).OrderBy(mp => mp.Title);
+            ViewBag.CurrentSearchString = searchString;
+            ViewBag.Controller = nameof(HomeController);
+            ViewBag.Action = nameof(Index);
+            return View(allMedia);
         }
     }
 }

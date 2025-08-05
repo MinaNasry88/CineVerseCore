@@ -3,9 +3,24 @@
     ViewBag.Title = "Home";
 }
 
-<br />
-<h4>Media</h4>
-<br />
+<div class="flex">
+
+    <h4 class="flex-1 text-left">Media</h4>
+    <div class="col-3 text-right">
+    @{
+        await Html.RenderPartialAsync("_SearchPartialView", viewData: ViewData);
+    }
+    </div>
+    <br />
+</div>
+
+
+<div class="flex">
+    <div class="flex-1">
+        <span class="text-grey">CineVerse</span> <i class="fa-solid fa-caret-right"></i> <span class="text-grey">Home</span>
+    </div>
+</div>
+
 <div class="row" style="display:flex; background-color:white; flex-flow:wrap">
     @foreach(MediaProduction mp in Model)
     {

@@ -2,7 +2,7 @@
 
 namespace ServiceContracts
 {
-    public interface IMediaProductionsService
+    public interface IMediaProductionsGetterService
     {
         Task<List<MediaProduction>> GetAllMediaProductions();
 
