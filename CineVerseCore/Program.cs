@@ -9,14 +9,16 @@ builder.Services.AddControllersWithViews();
 
 builder.Services.AddScoped<IMediaProductionsGetterService, MediaProductionsGetterService>();
 builder.Services.AddScoped<IMoviesGetterService, MoviesGetterService>();
+builder.Services.AddScoped<ITvShowsGetterService, TvShowsGetterService>();
+builder.Services.AddScoped<IStarsGetterService, StarsGetterService>();
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
 
-var app = builder.Build();
 
+var app = builder.Build();
 
 app.UseHsts();
 app.UseHttpsRedirection();

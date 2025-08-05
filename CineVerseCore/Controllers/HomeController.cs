@@ -4,7 +4,6 @@ using ServiceContracts;
 
 namespace CineVerseCore.Controllers
 {
-    [Route("[controller]")]
     public class HomeController : Controller
     {
         private readonly IMediaProductionsGetterService _mediaProductionsGetterService;
@@ -15,15 +14,16 @@ namespace CineVerseCore.Controllers
         }
 
         [Route("/")]
-        [Route("[action]")]
+        [Route("home")]
         public async Task<IActionResult> Index(string searchString = "")
         {
-            IEnumerable<MediaProduction> allMedia = (await _mediaProductionsGetterService.GetAllMediaProductions())
-                .Where(mp => mp.Title!.Contains(searchString, StringComparison.OrdinalIgnoreCase)).OrderBy(mp => mp.Title);
+            
             ViewBag.CurrentSearchString = searchString;
             ViewBag.Controller = nameof(HomeController);
             ViewBag.Action = nameof(Index);
-            return View(allMedia);
+            ViewBag.Title = "Home";
+            return View((await _mediaProductionsGetterService.GetAllMediaProductions())
+                .Where(mp => mp.Title!.Contains(searchString, StringComparison.OrdinalIgnoreCase)).OrderBy(mp => mp.Title));
         }
     }
 }

@@ -20,4 +20,11 @@
     <ProjectReference Include="..\Services\Services.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Views\Home\" />
+    <Folder Include="Views\Movies\" />
+    <Folder Include="Views\Stars\" />
+    <Folder Include="Views\TvShows\" />
+  </ItemGroup>
+
 </Project>
