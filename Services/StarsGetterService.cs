@@ -16,8 +16,8 @@ namespace Services
 
         public async Task<IEnumerable<Person>> GetAllStars()
         {
-            List<Person?> stars = (await _db.Stars.Include(s => s.Performer).GroupBy(s => s.PerformerId)
-                .Select(s => s.FirstOrDefault()).ToListAsync()).Select(s => s?.Performer).ToList();
+            Person?[] stars = (await _db.Stars.Include(s => s.Performer).GroupBy(s => s.PerformerId)
+                .Select(s => s.FirstOrDefault()).ToArrayAsync()).Select(s => s?.Performer).ToArray();
             return stars!;
         }
     }

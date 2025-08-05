@@ -23,6 +23,7 @@
   <ItemGroup>
     <Folder Include="Views\Home\" />
     <Folder Include="Views\Movies\" />
+    <Folder Include="Views\Writers\" />
     <Folder Include="Views\Stars\" />
     <Folder Include="Views\TvShows\" />
   </ItemGroup>

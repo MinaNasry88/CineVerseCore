@@ -22,7 +22,9 @@ namespace CineVerseCore.Controllers
             ViewBag.Action = nameof(Stars);
             ViewBag.Title = "Stars";
 
-            return View("People", (await _starsGetterService.GetAllStars()).Where(s => s.Name!.Contains(searchString, StringComparison.OrdinalIgnoreCase)));
+            return View("People", (await _starsGetterService.GetAllStars()).
+                Where(s => s.Name!.Contains(searchString, StringComparison.OrdinalIgnoreCase))
+                .OrderBy(s => s.Name));
         }
     }
 }
