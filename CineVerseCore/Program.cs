@@ -8,6 +8,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddScoped<IMediaProductionsGetterService, MediaProductionsGetterService>();
+builder.Services.AddScoped<IMoviesGetterService, MoviesGetterService>();
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
 {
