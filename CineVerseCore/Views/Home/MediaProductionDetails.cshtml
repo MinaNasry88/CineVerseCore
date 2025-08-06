@@ -1,0 +1,90 @@
+﻿@model MediaProductionDetailsViewModel
+@{
+    ViewBag.Title = "Details";
+}
+
+<br />
+<h4>@Model.MediaProduction?.Title</h4>
+
+<img src="@Url.Content(Model.MediaProduction?.ImagePath)" class="img-fluid" style="height:600px; width:450px" alt="@Model.MediaProduction?.Title" />
+
+<br />
+<br />
+
+<div class="container-fluid">
+    
+    <h5>Released: @Model.MediaProduction?.ReleaseDate?.ToString("MMMM d, yyyyy")</h5>
+
+    <h5>
+        Rating: @Model.Rating?.Value/10⭐
+    </h5>
+
+    @{
+        int num = Model.Rating!.Votes;
+        string numStr;
+
+        if (num < 1000)
+        {
+            numStr = num.ToString();
+        }
+        else if (num > 1000 && num < 1000000)
+        {
+            float num_ = num / 1000;
+            numStr = num_.ToString("0") + "K";
+        }
+        else
+        {
+            float num_ = num / 1000000.0f;
+            numStr = num_.ToString("0.0") + "M";
+        }
+    }
+
+    <h5>
+        Votes: @numStr
+    </h5>
+
+    @if (Model.MediaProduction!.Episodes.HasValue)
+    {
+        <h5>Episodes: @Model.MediaProduction.Episodes</h5>
+    }
+    
+    <br />
+
+    <h5>Genre(s):</h5>
+    <ul class="pr">
+        @foreach(Genre genre in Model.Genres!)
+        {
+            <li>@genre.GenreName</li>
+        }
+    </ul>
+
+    <br />
+
+    <h5>Director(s):</h5>
+    <ul>
+        @foreach(Person director in Model.Directors!)
+        {
+            <li><a asp-controller="directors" asp-action="details" asp-route-id="@director.Id" class="link-hover">@director.Name</a></li>
+        }
+    </ul>
+
+    <br />
+
+    <h5>Writer(s):</h5>
+    <ul>
+        @foreach(Person writer in Model.Writers!)
+        {
+            <li><a asp-controller="writers" asp-action="details" asp-route-id="@writer.Id" class="link-hover">@writer.Name</a></li>
+        }
+    </ul>
+
+    <br />
+
+    <h5>Stars:</h5>
+    <ul>
+        @foreach(Person star in Model.Stars!)
+        {
+            <li><a asp-controller="stars" asp-action="details" asp-route-id="@star.Id" class="link-hover">@star.Name</a></li>
+        }
+    </ul>
+</div>

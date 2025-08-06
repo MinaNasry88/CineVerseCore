@@ -13,6 +13,9 @@ builder.Services.AddScoped<ITvShowsGetterService, TvShowsGetterService>();
 builder.Services.AddScoped<IStarsGetterService, StarsGetterService>();
 builder.Services.AddScoped<IWritersGetterService, WritersGetterService>();
 builder.Services.AddScoped<IDirectorsGetterService, DirectorsGetterService>();
+builder.Services.AddScoped<IMediaProductionGenresGetterService, MediaProductionGenresGetterService>();
+builder.Services.AddScoped<IMediaProductionRatingGetterService, MediaProductionRatingGetterService>();
+
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
 {

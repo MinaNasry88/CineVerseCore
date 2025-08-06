@@ -14,6 +14,13 @@ namespace Services
             _db = db;
         }
 
+        public async Task<IEnumerable<Person>> GetAllMediaProductionStars(int id)
+        {
+            Person?[] mediaProductionStars =  await _db.Stars.Include(mp => mp.Performer)
+                .Where(mp => mp.MediaProductionId == id).Select(mp => mp.Performer).ToArrayAsync();
+            return mediaProductionStars!;
+        }
+
         public async Task<IEnumerable<Person>> GetAllStars()
         {
             Person?[] stars = (await _db.Stars.Include(s => s.Performer).GroupBy(s => s.PerformerId)

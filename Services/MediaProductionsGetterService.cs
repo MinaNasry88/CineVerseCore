@@ -18,5 +18,10 @@ namespace Services
         {
             return await _db.MediaProductions.ToListAsync();
         }
+
+        public async Task<MediaProduction> GetMediaProductionById(int id)
+        {
+            return await _db.MediaProductions.FirstAsync(mp => mp.Id == id);
+        }
     }
 }

@@ -5,5 +5,6 @@ namespace ServiceContracts
     public interface IWritersGetterService
     {
         Task<IEnumerable<Person>> GetAllWriters();
+        Task<IEnumerable<Person>> GetAllMediaProductionWriters(int id);
     }
 }
