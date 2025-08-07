@@ -64,7 +64,7 @@
     <ul>
         @foreach(Person director in Model.Directors!)
         {
-            <li><a asp-controller="directors" asp-action="details" asp-route-id="@director.Id" class="link-hover">@director.Name</a></li>
+            <li><a asp-controller="directors" asp-action="directordetails" asp-route-id="@director.Id" class="link-hover">@director.Name</a></li>
         }
     </ul>
 
@@ -74,7 +74,7 @@
     <ul>
         @foreach(Person writer in Model.Writers!)
         {
-            <li><a asp-controller="writers" asp-action="details" asp-route-id="@writer.Id" class="link-hover">@writer.Name</a></li>
+            <li><a asp-controller="writers" asp-action="writerdetails" asp-route-id="@writer.Id" class="link-hover">@writer.Name</a></li>
         }
     </ul>
 
@@ -84,7 +84,7 @@
     <ul>
         @foreach(Person star in Model.Stars!)
         {
-            <li><a asp-controller="stars" asp-action="details" asp-route-id="@star.Id" class="link-hover">@star.Name</a></li>
+            <li><a asp-controller="stars" asp-action="stardetails" asp-route-id="@star.Id" class="link-hover">@star.Name</a></li>
         }
     </ul>
 </div>

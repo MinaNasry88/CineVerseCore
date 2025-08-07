@@ -20,10 +20,31 @@
 <br />
 
 <ul class="list">
-    @foreach (Person person in Model)
+    @if (ViewBag.Title == "Stars")
     {
-        <li>
-            <a asp-controller="persons" asp-action="persondetails" asp-route-id="@person.Id">@person.Name</a>
-        </li>
+        @foreach (Person person in Model)
+        {
+            <li>
+                <a asp-controller="stars" asp-action="stardetails" asp-route-id="@person.Id">@person.Name</a>
+            </li>
+        }
+    }
+    else if (ViewBag.Title == "Directors")
+    {
+        @foreach (Person person in Model)
+        {
+            <li>
+                <a asp-controller="directors" asp-action="directordetails" asp-route-id="@person.Id">@person.Name</a>
+            </li>
+        }
+    }
+    else
+    {
+        @foreach (Person person in Model)
+        {
+            <li>
+                <a asp-controller="writers" asp-action="writerdetails" asp-route-id="@person.Id">@person.Name</a>
+            </li>
+        }
     }
 </ul>

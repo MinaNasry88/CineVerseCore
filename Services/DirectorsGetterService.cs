@@ -29,5 +29,11 @@ namespace Services
                 .Where(d => d.MediaProductionId == id).Select(d => d.Person).ToArrayAsync();
             return mediaProductionDirectors!;
         }
+
+        public async Task<Person> GetDirectorById(int id)
+        {
+            Person? director = await _db.Persons.FirstOrDefaultAsync(d => d.Id == id);
+            return director!;
+        }
     }
 }

@@ -4,6 +4,12 @@
     ViewBag.Title = "Person Details";
 }
 
+<div class="flex">
+    <div class="flex-1">
+        <span class="text-grey">CineVerse</span> <i class="fa-solid fa-caret-right"></i> <span class="text-grey">@ViewBag.Breadcrum1</span> <i class="fa-solid fa-caret-right"></i> <span class="text-grey">@ViewBag.Breadcrum2</span>
+    </div>
+</div>
+
 <div class="card" style="width: 18rem">
     <img src="@Url.Content(Model.Person?.Headshot)" class="card-img-top img-fluid" style="height:auto; width:auto" alt="@Model.Person?.Name" />
     <div class="card-body">

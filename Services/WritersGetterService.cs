@@ -28,5 +28,11 @@ namespace Services
             Person?[] writers = (await _db.Writers.Include(w => w.Person).GroupBy(w => w.PersonId).Select(w => w.FirstOrDefault()).ToArrayAsync()).Select(w => w?.Person).ToArray();
             return writers!;
         }
+
+        public async Task<Person> GetWriterById(int id)
+        {
+            Person? writer = await _db.Persons.FirstOrDefaultAsync(w => w.Id == id);
+            return writer!;
+        }
     }
 }

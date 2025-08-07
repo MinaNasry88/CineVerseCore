@@ -6,5 +6,6 @@ namespace ServiceContracts
     {
         Task<IEnumerable<Person>> GetAllWriters();
         Task<IEnumerable<Person>> GetAllMediaProductionWriters(int id);
+        Task<Person> GetWriterById(int id);
     }
 }
