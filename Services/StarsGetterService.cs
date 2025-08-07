@@ -27,5 +27,11 @@ namespace Services
                 .Select(s => s.FirstOrDefault()).ToArrayAsync()).Select(s => s?.Performer).ToArray();
             return stars!;
         }
+
+        public async Task<Person> GetStarById(int id)
+        {
+            Person? star = await _db.Persons.Where(p => p.Id == id).SingleOrDefaultAsync();
+            return star!;
+        }
     }
 }

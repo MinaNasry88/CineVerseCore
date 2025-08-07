@@ -1,0 +1,32 @@
+﻿@model PersonDetailsViewModel
+
+@{
+    ViewBag.Title = "Person Details";
+}
+
+<div class="card" style="width: 18rem">
+    <img src="@Url.Content(Model.Person?.Headshot)" class="card-img-top img-fluid" style="height:auto; width:auto" alt="@Model.Person?.Name" />
+    <div class="card-body">
+        <h5 class="card-title" style="text-align: center">@Model.Person?.Name</h5>
+        <h5 style="text-align: center">Born: @Model.Person?.DateOfBirth?.ToString("MMMM d, yyyy")</h5>
+    </div>
+</div>
+
+<br />
+
+<h5>Known for: </h5>
+
+<br />
+
+<div class="row" style="display:flex; background-color:white; flex-flow:wrap">
+    @foreach (MediaProduction mp in Model.MediaProductions!)
+    {
+        <div class="card" style="width:18rem; margin-right:2px !important; margin-bottom: 1rem;">
+            <img src="@Url.Content(mp.ImagePath)" class="card-img-top img-fluid" style="height:400px" alt="Responsive image" />
+            <div class="card-body">
+                <h5 class="card-title justify-content-evenly">@mp.Title</h5>
+                <a asp-controller="Home" asp-action="details" asp-route-id="@mp.Id" class="btn btn-primary">See more</a>
+            </div>
+        </div>
+    }
+</div>

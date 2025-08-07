@@ -23,7 +23,7 @@
     @foreach (Person person in Model)
     {
         <li>
-            <a asp-controller="stars" asp-action="details" asp-route-id="@person.Id">@person.Name</a>
+            <a asp-controller="persons" asp-action="persondetails" asp-route-id="@person.Id">@person.Name</a>
         </li>
     }
 </ul>

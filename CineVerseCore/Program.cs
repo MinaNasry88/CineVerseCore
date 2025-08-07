@@ -10,6 +10,7 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<IMediaProductionsGetterService, MediaProductionsGetterService>();
 builder.Services.AddScoped<IMoviesGetterService, MoviesGetterService>();
 builder.Services.AddScoped<ITvShowsGetterService, TvShowsGetterService>();
+builder.Services.AddScoped<IPersonGetterService, PersonGetterService>();
 builder.Services.AddScoped<IStarsGetterService, StarsGetterService>();
 builder.Services.AddScoped<IWritersGetterService, WritersGetterService>();
 builder.Services.AddScoped<IDirectorsGetterService, DirectorsGetterService>();

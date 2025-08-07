@@ -7,5 +7,6 @@ namespace ServiceContracts
         Task<List<MediaProduction>> GetAllMediaProductions();
         Task<MediaProduction> GetMediaProductionById(int id);
 
+        Task<IEnumerable<MediaProduction>> GetPersonAllMediaProductions(int personId);
     }
 }
