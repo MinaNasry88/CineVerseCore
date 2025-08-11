@@ -23,6 +23,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 });
 
 
+
 var app = builder.Build();
 
 app.UseHsts();
