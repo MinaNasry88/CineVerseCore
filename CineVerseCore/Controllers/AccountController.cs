@@ -24,26 +24,26 @@ namespace CineVerseCore.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Register(RegisterDto register)
+        public async Task<IActionResult> Register(RegisterDto registerDto)
         {
             // Checking for validation errors
             if (!ModelState.IsValid)
             {
                 ViewBag.Errors = ModelState.Values.SelectMany(mse => mse.Errors).Select(me => me.ErrorMessage);
-                return View(register);
+                return View(registerDto);
             }
 
             // ToDo: Store user registeration details into Identity database
             ApplicationUser user = new ApplicationUser()
             {
-                PersonName = register.Username,
-                UserName = register.Email,
-                Email = register.Email,
-                PhoneNumber = register.Phone
+                PersonName = registerDto.Username,
+                UserName = registerDto.Email,
+                Email = registerDto.Email,
+                PhoneNumber = registerDto.Phone
             };
 
             // Creating a new user using user manager
-            IdentityResult result = await _userManager.CreateAsync(user, register.Password!);
+            IdentityResult result = await _userManager.CreateAsync(user, registerDto.Password!);
 
             if (result.Succeeded)
             {
@@ -59,8 +59,31 @@ namespace CineVerseCore.Controllers
                     ModelState.AddModelError("Register", error.Description);
                 }
 
-                return View(register);
+                return View(registerDto);
             }    
+        }
+
+        [HttpGet]
+        public IActionResult Login()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Login(LoginDto loginDto)
+        {
+            if (!ModelState.IsValid)
+            {
+                ViewBag.Errors = ModelState.Values.SelectMany(mse => mse.Errors).Select(me => me.ErrorMessage);
+                return View(loginDto);
+            }
+
+            ApplicationUser? user = await _userManager.FindByEmailAsync(loginDto.Email!);
+
+            if (user == null)
+            {
+                return NotFound("User not found!");
+            }
         }
     }
 }
