@@ -18,7 +18,7 @@ namespace CineVerseCore.Controllers
         [Route("stars")]
         public async Task<IActionResult> Stars(string searchString = "")
         {
-            ViewBag.CurrentSeachString = searchString;
+            ViewBag.CurrentSearchString = searchString;
             ViewBag.Controller = nameof(StarsController); ;
             ViewBag.Action = nameof(Stars);
             ViewBag.Title = "Stars";

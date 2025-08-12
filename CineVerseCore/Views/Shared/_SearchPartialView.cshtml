@@ -3,7 +3,7 @@
         @{
             if (ViewBag.Title == "Home") { ViewBag.Title = "Media"; };
         }
-        <input type="search" class="form-control" placeholder="Search @ViewBag.Title" aria-label="Search" name="searchString" value="@ViewBag.CurrentSearchString">
+        <input class="form-control" type="search" placeholder="Search @ViewBag.Title" aria-label="Search" name="searchString" value="@ViewBag.CurrentSearchString">
         <button class="button button-blue-back" type="submit">Search</button>
     </div>
 </form>

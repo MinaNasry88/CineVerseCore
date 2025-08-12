@@ -1,5 +1,6 @@
 using Entities.AppDbContext;
 using Entities.IdentityModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -40,6 +41,15 @@ builder.Services.AddIdentity<ApplicationUser, ApplicationRole>(options =>
 .AddUserStore<UserStore<ApplicationUser, ApplicationRole, ApplicationDbContext, Guid>>()
 .AddRoleStore<RoleStore<ApplicationRole, ApplicationDbContext, Guid>>();
 
+builder.Services.AddAuthorization(options => {
+    // enforces authorization policy (user must be authenticated) for all the action methods
+    options.FallbackPolicy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
+});
+
+builder.Services.ConfigureApplicationCookie(options =>
+{
+    options.LoginPath = "/Account/Login";
+});
 
 var app = builder.Build();
 
@@ -53,6 +63,7 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting(); // Identifies the action method based on route
 app.UseAuthentication(); // reads the Identity cookie if found and extracts the username and userId from it
+app.UseAuthorization(); // Validates access persmissions of the user
 app.MapControllers(); // Executes the filter pipeline (action methods + filters)
 
 app.Run();

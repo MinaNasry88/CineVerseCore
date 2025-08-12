@@ -19,7 +19,7 @@ namespace CineVerseCore.Controllers
         [Route("directors")]
         public async Task<IActionResult> Directors(string searchString = "")
         {
-            ViewBag.CurrentSeachString = searchString;
+            ViewBag.CurrentSearchString = searchString;
             ViewBag.Controller = nameof(DirectorsController); ;
             ViewBag.Action = nameof(Directors);
             ViewBag.Title = "Directors";

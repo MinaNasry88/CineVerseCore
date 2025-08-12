@@ -21,7 +21,7 @@ namespace CineVerseCore.Controllers
         public async Task<IActionResult> Writers(string searchString = "")
         {
             ViewBag.Action = ViewBag.Title = nameof(Writers);
-            ViewBag.CurrentSearchStrig = searchString;
+            ViewBag.CurrentSearchString = searchString;
             ViewBag.Controller = nameof(WritersController);
 
             return View("People", (await _writersGetterService.GetAllWriters())
