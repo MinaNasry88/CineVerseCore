@@ -2,7 +2,7 @@
 
 namespace Entities.DTOs
 {
-    public class Register
+    public class RegisterDto
     {
         [Required(ErrorMessage = "Username can't be blank!")]
         public string? Username { get; set; }
