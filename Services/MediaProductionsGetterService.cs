@@ -21,7 +21,7 @@ namespace Services
 
         public async Task<MediaProduction> GetMediaProductionById(int id)
         {
-            return await _db.MediaProductions.FirstAsync(mp => mp.Id == id);
+            return await _db.MediaProductions.Include(mp => mp.MediaProductionType).FirstAsync(mp => mp.Id == id);
         }
 
         public async Task<IEnumerable<MediaProduction>> GetStarAllMediaProductions(int personId)

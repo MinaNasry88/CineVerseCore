@@ -73,7 +73,7 @@ namespace CineVerseCore.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Login(LoginDto loginDto)
+        public async Task<IActionResult> Login(LoginDto loginDto, string returnUrl)
         {
             // Checking for validation errors
             if (!ModelState.IsValid)
@@ -87,7 +87,13 @@ namespace CineVerseCore.Controllers
 
             if (result.Succeeded)
             { 
+                if (!string.IsNullOrEmpty(returnUrl) && Url.IsLocalUrl(returnUrl))
+                {
+                    return LocalRedirect(returnUrl);
+                }
+                
                 return RedirectToAction(nameof(HomeController.Index), "Home");
+                
             }
             else
             {
@@ -102,6 +108,20 @@ namespace CineVerseCore.Controllers
 
             return RedirectToAction(nameof(HomeController.Index), "Home");
 
+        }
+
+        public async Task<IActionResult> IsEmailAlreadyRegistered(string email)
+        {
+            ApplicationUser? user = await _userManager.FindByEmailAsync(email);
+
+            if (user == null)
+            {
+                return Json(true); // valid: Email address isn't already registered
+            }
+            else
+            {
+                return Json(false); // invalid: Email address is already registered
+            }
         }
     }
 }

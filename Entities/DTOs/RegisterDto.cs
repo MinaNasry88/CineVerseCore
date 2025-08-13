@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Mvc;
+using System.ComponentModel.DataAnnotations;
 
 namespace Entities.DTOs
 {
@@ -10,6 +11,7 @@ namespace Entities.DTOs
         [Required(ErrorMessage = "Email can't be blank!")]
         [EmailAddress(ErrorMessage = "Email should be in a proper email address format!")]
         [DataType(DataType.EmailAddress)]
+        [Remote(action: "IsEmailAlreadyRegistered", controller: "Account", ErrorMessage = "This Email is already registered!")]
         public string? Email { get; set; }
 
         [Required(ErrorMessage = "Phone can't be blank!")]
