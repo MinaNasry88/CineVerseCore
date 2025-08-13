@@ -3,6 +3,7 @@ using Entities.IdentityModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using ServiceContracts;
 using SignInResult = Microsoft.AspNetCore.Identity.SignInResult;
 
 namespace CineVerseCore.Controllers
@@ -13,11 +14,12 @@ namespace CineVerseCore.Controllers
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
-
-        public AccountController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager)
+        private readonly IBookmarkService _bookmarkService;
+        public AccountController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, IBookmarkService bookmarkService)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            _bookmarkService = bookmarkService;
         }
 
         [HttpGet]
@@ -122,6 +124,13 @@ namespace CineVerseCore.Controllers
             {
                 return Json(false); // invalid: Email address is already registered
             }
+        }
+
+        public async Task<IActionResult> AddBookmark(int id, string userName, string action, string controller)
+        {
+            await _bookmarkService.AddBookMark(id, userName);
+
+            return RedirectToAction(action, controller);
         }
     }
 }

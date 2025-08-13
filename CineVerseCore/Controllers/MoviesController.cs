@@ -16,7 +16,7 @@ namespace CineVerseCore.Controllers
         public async Task<IActionResult> Index(string searchString = "")
         {
             ViewBag.CurrentSearchString = searchString;
-            ViewBag.Controller = nameof(MoviesController);
+            ViewBag.Controller = "Movies";
             ViewBag.Action = (nameof(Index));
             ViewBag.Title = "Movies";
             return View((await _moviesGetterService.GetAllMovies()).Where(m => m.Title!.Contains(searchString, StringComparison.OrdinalIgnoreCase)).OrderBy(m => m.Title));

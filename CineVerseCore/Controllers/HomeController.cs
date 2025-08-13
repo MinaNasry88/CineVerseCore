@@ -34,7 +34,7 @@ namespace CineVerseCore.Controllers
         {
             
             ViewBag.CurrentSearchString = searchString;
-            ViewBag.Controller = nameof(HomeController);
+            ViewBag.Controller = "Home";
             ViewBag.Action = nameof(Index);
             ViewBag.Title = "Home";
             return View((await _mediaProductionsGetterService.GetAllMediaProductions())

@@ -17,7 +17,7 @@ namespace CineVerseCore.Controllers
         {
             ViewBag.CurrentSearchString = searchString;
             ViewBag.Action = nameof(Index);
-            ViewBag.Controller = nameof(TvShowsController);
+            ViewBag.Controller = "TvShows";
             ViewBag.Title = "Tv Shows";
             return View((await _tvShowsGetterService.GetAllTvShows())
                 .Where(mp => mp.Title!.Contains(searchString, StringComparison.OrdinalIgnoreCase)).OrderBy(mp => mp.Title));
