@@ -1,7 +1,7 @@
 ﻿<form asp-action="@ViewBag.Action" asp-controller="@ViewBag.Controller" method="post">
     <div class="input-group">
         @{
-            if (ViewBag.Title == "Home") { ViewBag.Title = "Media"; };
+            if (ViewBag.Title == "Home" || ViewBag.Title == "MyProfile") { ViewBag.Title = "Media"; };
         }
         <input class="form-control" type="search" placeholder="Search @ViewBag.Title" aria-label="Search" name="searchString" value="@ViewBag.CurrentSearchString">
         <button class="button button-blue-back" type="submit">Search</button>

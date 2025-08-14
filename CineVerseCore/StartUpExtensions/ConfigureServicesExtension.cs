@@ -25,7 +25,6 @@ namespace CineVerseCore.StartUpExtensions
             services.AddScoped<IMediaProductionRatingGetterService, MediaProductionRatingGetterService>();
             services.AddScoped<IBookmarkService, BookmarkService>();
 
-
             services.AddDbContext<ApplicationDbContext>(options =>
             {
                 options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"));

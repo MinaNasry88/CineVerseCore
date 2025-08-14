@@ -34,7 +34,7 @@
                         <a class="nav-link" asp-controller="directors" asp-action="directors"><b>Directors</b></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" asp-controller="#" asp-action="#"><b>My Profile</b></a>
+                        <a class="nav-link" asp-controller="Account" asp-action="MyProfile" asp-route-userName="@User.Identity?.Name"><b>My Profile</b></a>
                     </li>
                 </ul>
 
@@ -51,7 +51,7 @@
                         }
                         else
                         {
-                            <li><i class="fa-solid fa-user"></i>@User.Identity?.Name</li>
+                            <li style="color: blue"><i class="fa-solid fa-user" style="color: green"></i>@User.Identity?.Name</li>
                             <li>
                                 <a asp-action="Logout" asp-controller="Account" style="color:red">Logout</a>
                             </li>

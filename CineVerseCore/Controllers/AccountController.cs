@@ -1,9 +1,11 @@
 ﻿using Entities.DTOs;
 using Entities.IdentityModels;
+using Entities.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using ServiceContracts;
+using Services;
 using SignInResult = Microsoft.AspNetCore.Identity.SignInResult;
 
 namespace CineVerseCore.Controllers
@@ -15,11 +17,14 @@ namespace CineVerseCore.Controllers
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly IBookmarkService _bookmarkService;
-        public AccountController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, IBookmarkService bookmarkService)
+        private readonly IMediaProductionsGetterService _mediaProductionGetterService; 
+
+        public AccountController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, IBookmarkService bookmarkService, IMediaProductionsGetterService mediaProductionsGetterService)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _bookmarkService = bookmarkService;
+            _mediaProductionGetterService = mediaProductionsGetterService;
         }
 
         [HttpGet]
@@ -126,11 +131,34 @@ namespace CineVerseCore.Controllers
             }
         }
 
-        public async Task<IActionResult> AddBookmark(int id, string userName, string action, string controller)
+        public async Task<IActionResult> AddBookmark(int id, int personId, string userName, string actionName, string controllerName)
         {
             await _bookmarkService.AddBookMark(id, userName);
 
-            return RedirectToAction(action, controller);
+            return RedirectToAction(actionName, controllerName, new { id = personId });
+        }
+
+        public async Task<IActionResult> DeleteBookmark(int id, string userName)
+        {
+            await _bookmarkService.DeleteBookMark(id, userName);
+
+            return RedirectToAction(nameof(AccountController.MyProfile), new { userName = userName });
+        }
+
+        public async Task<IActionResult> MyProfile(string userName, string searchString = "")
+        {
+            ApplicationUser? user = await _userManager.FindByNameAsync(userName);
+
+            UserProfileViewModel userProfile = new UserProfileViewModel()
+            {
+                User = user,
+                BookmarkedMediaProductions = (await _mediaProductionGetterService.GetUserBookmarkedMediaProductions(user!.Id))
+                .Where(mp => mp.Title!.Contains(searchString, StringComparison.OrdinalIgnoreCase))
+            };
+
+            ViewBag.CurrentSearchString = searchString;
+
+            return View(userProfile);
         }
     }
 }

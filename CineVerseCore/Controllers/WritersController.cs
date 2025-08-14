@@ -40,6 +40,8 @@ namespace CineVerseCore.Controllers
 
             ViewBag.Breadcrum1 = "Writer";
             ViewBag.Breadcrum2 = "Info";
+            ViewBag.Action = nameof(WriterDetails);
+            ViewBag.Controller = "Writers";
 
             return View("PersonDetails", vm);
         }

@@ -20,7 +20,7 @@ namespace Services
 
         public async Task AddBookMark(int id, string userName)
         {
-            ApplicationUser? user = await _userManager.FindByEmailAsync(userName);
+            ApplicationUser? user = await _userManager.FindByNameAsync(userName);
 
             if (_db.Bookmarks.Where(b => b.UserId == user!.Id).Any(b => b.MediaProductionId == id))
             {
@@ -37,6 +37,16 @@ namespace Services
                 await _db.Bookmarks.AddAsync(bookmark);
                 await _db.SaveChangesAsync();
             }
+        }
+
+        public async Task DeleteBookMark(int id, string userName)
+        {
+            ApplicationUser? user = await _userManager.FindByEmailAsync(userName);
+
+            Bookmark bookmark = await _db.Bookmarks.Where(b => b.UserId == user!.Id).Where(b => b.MediaProductionId == id).SingleAsync();
+
+            _db.Bookmarks.Remove(bookmark);
+            await _db.SaveChangesAsync();
         }
     }
 }

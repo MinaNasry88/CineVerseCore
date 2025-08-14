@@ -1,0 +1,66 @@
+﻿@model UserProfileViewModel
+@{
+    ViewBag.Title = "MyProfile";
+}
+
+<div class="flex">
+    <div class="flex-1">
+        <span class="text-grey">CineVerse</span>
+        <i class="fa-solid fa-caret-right"></i>
+        <span class="text-grey">My Profile</span>
+    </div>
+
+    @if (Model.BookmarkedMediaProductions!.Any())
+    {
+        <div class="col-3 text-right">
+            @{
+                await Html.RenderPartialAsync("_SearchPartialView", viewData: ViewData);
+            }
+        </div>
+    }
+
+</div>
+
+<br />
+
+<div class="flex">
+
+    <div class="flex-1 text-left">
+        <h4><u>My Profile</u></h4>
+        <ul style="margin-left: 30px">
+            <li>
+                <h5 class="flex-1 text-left" style="color: green">Username: @Model.User?.PersonName</h5>
+            </li>
+            <li>
+                <h5 class="flex-1 text-left" style="color: green">Email: @Model.User?.Email</h5>
+            </li>
+        </ul>
+    </div>
+
+    
+   
+</div>
+
+<br />
+
+@if (Model.BookmarkedMediaProductions!.Any())
+{
+
+    <h4><u>My Bookmarks</u></h4>
+
+    <br />
+
+    <div class="row" style="display:flex; background-color:white; flex-flow:wrap">
+        @foreach (MediaProduction mp in Model.BookmarkedMediaProductions!)
+        {
+            <div class="card" style="width:18rem; margin-right:2px !important; margin-bottom: 1rem;">
+                <img src="@Url.Content(mp.ImagePath)" class="card-img-top img-fluid" style="height:400px" alt="Responsive image" />
+                <div class="card-body">
+                    <h5 class="card-title justify-content-evenly">@mp.Title</h5>
+                    <a asp-controller="Home" asp-action="details" asp-route-id="@mp.Id" class="btn btn-primary">See more</a>
+                    <a asp-controller="Account" asp-action="DeleteBookmark" asp-route-id="@mp.Id" asp-route-username="@User.Identity!.Name" class="btn btn-danger">Remove</a>
+                </div>
+            </div>
+        }
+    </div>
+}

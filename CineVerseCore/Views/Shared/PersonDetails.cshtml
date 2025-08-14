@@ -32,7 +32,7 @@
             <div class="card-body">
                 <h5 class="card-title justify-content-evenly">@mp.Title</h5>
                 <a asp-controller="Home" asp-action="details" asp-route-id="@mp.Id" class="btn btn-primary">See more</a>
-                <a asp-controller="Account" asp-action="AddBookmark" asp-route-id="@mp.Id" asp-route-userName="@User.Identity?.Name" asp-route-action="@ViewBag.Action" asp-route-controller="@ViewBag.Controller" class="btn btn-primary">Bookmark</a>
+                <a asp-controller="Account" asp-action="AddBookmark" asp-route-id="@mp.Id" asp-route-userName="@User.Identity?.Name" asp-route-personId="@Model.Person?.Id" asp-route-actionName="@ViewBag.Action" asp-route-controllerName="@ViewBag.Controller" class="btn btn-primary">Bookmark</a>
             </div>
         </div>
     }

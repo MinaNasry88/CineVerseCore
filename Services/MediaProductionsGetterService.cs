@@ -43,5 +43,12 @@ namespace Services
                 .Select(s => s.MediaProduction).ToArrayAsync();
             return directorMediaProductions!;
         }
+
+        public async Task<IEnumerable<MediaProduction>> GetUserBookmarkedMediaProductions(Guid userId)
+        {
+            MediaProduction?[] userBookmarkedMediaProductions = await _db.Bookmarks.Where(b => b.UserId == userId).Select(mp => mp.MediaProduction)
+                .OrderBy(mp => mp!.Title).ToArrayAsync();
+            return userBookmarkedMediaProductions!;
+        }
     }
 }

@@ -8,5 +8,6 @@ namespace Entities.Models
         public int Id { get; set; }
         public Guid UserId { get; set; }
         public int MediaProductionId { get; set; }
+        public virtual MediaProduction? MediaProduction { get; set; }
     }
 }
