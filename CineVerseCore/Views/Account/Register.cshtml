@@ -11,6 +11,17 @@
     </div>
 </div>
 
+<script src="https://www.google.com/recaptcha/api.js?render=6LcBbKYrAAAAADA0KU2LILG7eJw-F-fyO9xKjuKO"></script>
+
+<script>
+    function executeRecaptcha(action, callback) {
+        grecaptcha.ready(function () {
+            grecaptcha.execute("6LcBbKYrAAAAADA0KU2LILG7eJw-F-fyO9xKjuKO", { action: action }).then(function (token) {
+                callback(token);
+            });
+        });
+    }
+</script>
 
 <div class="form-container">
     
@@ -19,7 +30,10 @@
     
     <h2 class="text-large">Register</h2>
 
-    <form asp-action="Register" asp-controller="Account" method="post">
+    <form asp-action="Register" asp-controller="Account" method="post" id="registerForm">
+
+        @* recaptcha *@
+        <input type="hidden" name="g_recaptcha_response" id="g_recaptcha_response" />
 
         @* Username *@
         <div class="form-field flex">
@@ -101,6 +115,17 @@
         </div>
 
     </form>
+
+    <script>
+        document.getElementById('registerForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+            executeRecaptcha('submit_form', function (token) {
+                document.getElementById('g_recaptcha_response').value = token;
+                e.target.submit(); // Now submit the form
+            });
+        });
+    </script>
+
 
 </div>
 

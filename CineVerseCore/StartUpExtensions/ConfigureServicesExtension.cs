@@ -24,6 +24,7 @@ namespace CineVerseCore.StartUpExtensions
             services.AddScoped<IMediaProductionGenresGetterService, MediaProductionGenresGetterService>();
             services.AddScoped<IMediaProductionRatingGetterService, MediaProductionRatingGetterService>();
             services.AddScoped<IBookmarkService, BookmarkService>();
+            services.AddHttpClient<RecaptchaService>();
 
             services.AddDbContext<ApplicationDbContext>(options =>
             {

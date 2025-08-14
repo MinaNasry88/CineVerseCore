@@ -1,12 +1,5 @@
+using CineVerseCore.Middleware;
 using CineVerseCore.StartUpExtensions;
-using Entities.AppDbContext;
-using Entities.IdentityModels;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore;
-using ServiceContracts;
-using Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,6 +11,11 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.UseDeveloperExceptionPage();
+}
+else
+{
+    app.UseExceptionHandler("/Error");
+    app.UseExceptionHandlingMiddleware();
 }
 
 app.UseHsts();

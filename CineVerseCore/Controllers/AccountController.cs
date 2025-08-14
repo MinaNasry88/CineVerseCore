@@ -2,6 +2,7 @@
 using Entities.IdentityModels;
 using Entities.ViewModels;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using ServiceContracts;
@@ -34,8 +35,17 @@ namespace CineVerseCore.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Register(RegisterDto registerDto)
+        public async Task<IActionResult> Register(RegisterDto registerDto, [FromForm] string g_recaptcha_response, [FromServices] RecaptchaService recaptchaService)
         {
+            // recaptcha validation
+            bool isValid = await recaptchaService.VerifyTokenAsync(g_recaptcha_response);
+
+            if (!isValid)
+            {
+                ModelState.AddModelError("Register", "Failed reCAPTCHA verification.");
+                return View();
+            }
+
             // Checking for validation errors
             if (!ModelState.IsValid)
             {
@@ -80,8 +90,17 @@ namespace CineVerseCore.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Login(LoginDto loginDto, string returnUrl)
+        public async Task<IActionResult> Login(LoginDto loginDto, [FromForm] string g_recaptcha_response, [FromServices] RecaptchaService recaptchaService, string returnUrl = "Home/Index")
         {
+            // recaptcha validation
+            bool isValid = await recaptchaService.VerifyTokenAsync(g_recaptcha_response);
+
+            if (!isValid)
+            {
+                ModelState.AddModelError("Login", "Failed reCAPTCHA verification.");
+                return View();
+            }
+
             // Checking for validation errors
             if (!ModelState.IsValid)
             {
@@ -159,6 +178,19 @@ namespace CineVerseCore.Controllers
             ViewBag.CurrentSearchString = searchString;
 
             return View(userProfile);
+        }
+
+        [Route("/Error")]
+        public IActionResult Error()
+        {
+            IExceptionHandlerPathFeature? exceptionHandlerPathFeature = HttpContext.Features.Get<IExceptionHandlerPathFeature>();
+
+            if (exceptionHandlerPathFeature != null && exceptionHandlerPathFeature.Error != null)
+            {
+                ViewBag.ErrorMessage = exceptionHandlerPathFeature.Error.Message;
+            }
+
+            return View(); // Views/Shared/Error.cshtml
         }
     }
 }
